@@ -10,16 +10,7 @@ import androidx.room.PrimaryKey;
 public class Provider {
     @PrimaryKey(autoGenerate = true)
     int id;
-    String latlag;
-    String location;
-    String accuracy;
-    String speed;
-    String gyroscope;
-    String accelerometer;
-    String timestamp;
-    String magnetometer;
-
-
+    String latlag, location, accuracy,speed,gyroscope,accelerometer,timestamp,magnetometer;
 
     @Ignore
     public Provider( String latlag, String location, String accuracy, String speed, String gyroscope, String accelerometer, String timestamp, String magnetometer) {
