@@ -23,7 +23,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sensor);
         xValue = (TextView) findViewById(R.id.xValue);
         yValue =  (TextView)findViewById(R.id.yValue);
         zValue =  (TextView)findViewById(R.id.zValue);
