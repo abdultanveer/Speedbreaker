@@ -17,16 +17,16 @@
             android:name=".BottomNavActivity"
             android:exported="true"
             android:label="@string/title_activity_bottom_nav" >
-
-
-        </activity>
-        <activity android:name=".SensorActivity"
-            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".SensorActivity"
+            android:exported="true" >
+
         </activity>
     </application>
 
