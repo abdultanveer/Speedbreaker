@@ -24,7 +24,7 @@ class NewWordActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
             val replyIntent = Intent()
-            var word2 = Word(2,"12345",
+            var word2 = Word(3,"12345",
                 "123456,12345","12345",
                 "1234","1234","12345","12345","12345","12345",)
             /*  if (TextUtils.isEmpty(editidView.text)) {

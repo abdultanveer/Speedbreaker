@@ -4,6 +4,7 @@
     package="com.example.speedbreaker">
 
     <application
+        android:name=".WordsApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -32,14 +33,13 @@
             android:label="@string/title_activity_bottom_nav" >
 
 
+
+
         </activity>
         <activity android:name=".SensorActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 
