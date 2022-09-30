@@ -1,6 +1,7 @@
 package com.example.speedbreaker.ui.dashboard
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.Sensor.*
 import android.hardware.SensorEvent
@@ -14,12 +15,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.speedbreaker.R
+import com.example.speedbreaker.*
 import com.example.speedbreaker.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener {
+
+    lateinit var  sensor: Sensor
+
+    private val wordViewModel: WordViewModel by viewModels {
+        WordViewModelFactory((activity?.application as WordsApplication).repository)
+    }
+
     lateinit var  sensorManager :SensorManager
     lateinit var sensorEvent: SensorEvent
 
@@ -34,7 +44,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener 
    lateinit var yMagnoValue :TextView
    lateinit var zMagnoValue :TextView
    lateinit var mGyro :Sensor
-    lateinit  var  accelerometer: Sensor
+   lateinit  var  accelerometer: Sensor
 
 
     lateinit var buttonHump: Button
@@ -45,22 +55,28 @@ class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener 
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        sensorManager =  context?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(this, accelerometer,SensorManager.SENSOR_DELAY_NORMAL)
+
+        var mGyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        sensorManager.registerListener(this, mGyro,SensorManager.SENSOR_DELAY_UI)
+
+        var mMagno = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        sensorManager.registerListener(this, mMagno,SensorManager.SENSOR_DELAY_NORMAL)
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
        // setContentView(R.layout.fragment_dashboard)
-      sensorManager =  context?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         //sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
 
-          accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        sensorManager.registerListener(this, accelerometer,SensorManager.SENSOR_DELAY_NORMAL)
 
-        var mGyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
-        sensorManager.registerListener(this, mGyro,SensorManager.SENSOR_DELAY_NORMAL)
-
-        var mMagno = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-        sensorManager.registerListener(this, mMagno,SensorManager.SENSOR_DELAY_NORMAL)
 
 
     }
@@ -117,9 +133,15 @@ class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener 
     }
 
     override fun onClick(viewClicked: View?) {
+
         when(viewClicked?.id){
             R.id.btnHump ->{
-
+                var gyroscopeValues: String = ""
+                if(sensor.type == Sensor.TYPE_GYROSCOPE) {
+                     gyroscopeValues = "x="+sensorEvent.values[0]+",y="+sensorEvent.values[1]+",z="+sensorEvent.values[2]
+                }
+                var word: Word = Word(123, gyroscopeValues,"---" ,"nnn","mmm","000","ppp","qqq","rrr","sss")
+                wordViewModel.insert(word)
                 Log.i(TAG, "onClick: hump detected--accelerometer =")
                 Log.d(TAG,"TYPE_ACCELEROMETER: X: " + sensorEvent!!.values[0] + "Y: " + sensorEvent!!.values[1] + "Z: " + sensorEvent!!.values[2])
 
@@ -128,7 +150,6 @@ class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener 
 
                 Log.i(TAG, "onClick: hump detected--Magnetic Field =")
                 Log.d(TAG,"TYPE_MAGNETIC_FIELD: X: " + sensorEvent!!.values[0] + "Y: " + sensorEvent!!.values[1] + "Z: " + sensorEvent!!.values[2])
-
 
             }
 
@@ -143,7 +164,7 @@ class DashboardFragment : Fragment(), View.OnClickListener, SensorEventListener 
 
     override fun onSensorChanged(senseEvent: SensorEvent?) {
         sensorEvent = senseEvent!!
-        val sensor = senseEvent!!.sensor
+         sensor = senseEvent!!.sensor
         if (sensor.type == Sensor.TYPE_ACCELEROMETER) {
             xval.setText(sensorEvent.values[0].toString())
             yval.setText(sensorEvent.values[1].toString())
