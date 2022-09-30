@@ -7,21 +7,20 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.speedbreaker.databinding.ActivityBottomNavBinding
 
 class BottomNavActivity : AppCompatActivity() {
     // TODO: change the Word pojo with native datatypes 
     // TODO: write unit tests 
     
-    private lateinit var binding: ActivityBottomNavBinding
+   // private lateinit var binding: ActivityBottomNavBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityBottomNavBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
+        setContentView(R.layout.activity_bottom_nav)
+       // binding = ActivityBottomNavBinding.inflate(layoutInflater)
+        //setContentView(binding.root)
+        var navView : BottomNavigationView = findViewById(R.id.nav_view);
+       // val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_bottom_nav)
         // Passing each menu ID as a set of Ids because each

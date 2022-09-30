@@ -10,18 +10,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.speedbreaker.R
-import com.example.speedbreaker.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment(), View.OnClickListener {
 
    lateinit var buttonPothole: Button
    lateinit var buttonHump: Button
 
-    private var _binding: FragmentDashboardBinding? = null
+   // private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+   // private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,23 +30,26 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         val dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+       // _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        val root: View = inflater.inflate(R.layout.fragment_dashboard,container,false)
+            //binding.root
 
-        val textView: TextView = binding.textDashboard
-        buttonHump = binding.btnHump
-        buttonPothole = binding.btnPothole
+      //  val textView: TextView = binding.textDashboard
+      /*  buttonHump = binding.btnHump
+        buttonPothole = binding.btnPothole*/
+        buttonHump = root.findViewById(R.id.btnHump)
+        buttonPothole = root.findViewById(R.id.btnPothole)
         buttonHump.setOnClickListener(this)
         buttonPothole.setOnClickListener(this)
         dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+           // textView.text = it
         }
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+       // _binding = null
     }
 
     override fun onClick(viewClicked: View?) {
