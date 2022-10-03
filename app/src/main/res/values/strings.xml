@@ -4,8 +4,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="start_location_updates">start_location_updates</string>
-    <string name="stop_location_updates">stop_location_updates</string>
+    <string name="start_location_updates">start_loc_update</string>
+    <string name="stop_location_updates">stop_loc_update</string>
     <string name="action_settings">Settings</string>
     <string name="hint_id..">id</string>
     <string name="hint_latlng">latlng</string>

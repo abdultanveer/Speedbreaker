@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.speedbreaker">
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
@@ -16,8 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Speedbreaker"
         tools:targetApi="31">
-        <activity android:name=".LocationActivity"
-            android:exported="true">
+        <service
+            android:name=".DashboardFragmentService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity
+            android:name=".LocationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BottomNavActivity"
+            android:exported="true"
+            android:label="@string/title_activity_bottom_nav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,22 +36,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BottomNavActivity"
-            android:exported="true"
-            android:label="@string/title_activity_bottom_nav" >
-
-
-        </activity>
-        <activity android:name=".SensorActivity"
-            android:exported="true" >
+            android:name=".SensorActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".LocationService"
-            android:exported="true"/>
+
+        <service
+            android:name=".LocationService"
+            android:exported="true" />
     </application>
 
 </manifest>
