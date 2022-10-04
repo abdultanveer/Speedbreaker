@@ -3,6 +3,7 @@ package com.example.speedbreaker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -51,6 +52,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         }
 
 
+
         mGyro=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         if(mGyro!=null) {
             sensorManager.registerListener(SensorActivity.this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
@@ -72,8 +74,6 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             zMagnoValue.setText("Magno Not Supported");
         }
 
-
-
     }
 
     @Override
@@ -84,16 +84,73 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             xValue.setText("xvalue =" + sensorEvent.values[0]);
             yValue.setText("yvalue =" + sensorEvent.values[1]);
             zValue.setText("zvalue =" + sensorEvent.values[2]);
+
+
+           if(sensorEvent.values[0]>= 1 ){
+                    xValue.setBackgroundColor(Color.RED);
+            }
+           else if(sensorEvent.values[0]< 0){ xValue.setBackgroundColor(Color.GREEN);
+            }
+           else if(sensorEvent.values[1]>= 10 ){
+               yValue.setBackgroundColor(Color.RED);
+           }
+           else if(sensorEvent.values[1]<9){ yValue.setBackgroundColor(Color.YELLOW);
+           }
+           else if(sensorEvent.values[2]>= 5){
+               zValue.setBackgroundColor(Color.RED);
+           }
+           else if(sensorEvent.values[2]< 5) {
+               zValue.setBackgroundColor(Color.BLUE);
+           }
+
+
         }else if (sensor.getType()==Sensor.TYPE_GYROSCOPE){
             xGyroValue.setText("xGvalue =" + sensorEvent.values[0]);
             yGyroValue.setText("yGvalue =" + sensorEvent.values[1]);
             zGyroValue.setText("zGvalue =" + sensorEvent.values[2]);
 
+            if(sensorEvent.values[0]>= 1 ){
+                xGyroValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[0]< 0){ xGyroValue.setBackgroundColor(Color.GREEN);
+            }
+            else if(sensorEvent.values[1]>= 10 ){
+                yGyroValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[1]<9){ yGyroValue.setBackgroundColor(Color.YELLOW);
+            }
+            else if(sensorEvent.values[2]>= 5){
+                zGyroValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[2]< 5) {
+                zGyroValue.setBackgroundColor(Color.BLUE);
+            }
+
         }else if (sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD){
             xMagnoValue.setText("xMvalue =" + sensorEvent.values[0]);
             yMagnoValue.setText("yMvalue =" + sensorEvent.values[1]);
             zMagnoValue.setText("zMvalue =" + sensorEvent.values[2]);
+
+
+            if(sensorEvent.values[0]>= 1 ){
+                xMagnoValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[0]< 0){ xMagnoValue.setBackgroundColor(Color.GREEN);
+            }
+            else if(sensorEvent.values[1]>= 10 ){
+                yMagnoValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[1]<9){ yMagnoValue.setBackgroundColor(Color.YELLOW);
+            }
+            else if(sensorEvent.values[2]>= 5){
+                zMagnoValue.setBackgroundColor(Color.RED);
+            }
+            else if(sensorEvent.values[2]< 5) {
+                zMagnoValue.setBackgroundColor(Color.BLUE);
+            }
         }
+
+
     }
 
     @Override
