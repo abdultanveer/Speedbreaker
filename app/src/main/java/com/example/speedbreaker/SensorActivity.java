@@ -43,7 +43,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         accelerometer=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if(accelerometer!=null) {
-            sensorManager.registerListener(SensorActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(SensorActivity.this, accelerometer, SensorManager.SENSOR_DELAY_UI);
             Log.d(TAG, "oncreate: Registered accelerometer Listener");
         }else {
             xValue.setText("Accelerometer Not Supported");
@@ -55,7 +55,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         mGyro=sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         if(mGyro!=null) {
-            sensorManager.registerListener(SensorActivity.this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(SensorActivity.this, mGyro, SensorManager.SENSOR_DELAY_UI);
             Log.d(TAG, "oncreate: Registered gyro Listener");
         }else {
             xGyroValue.setText("Gyroscope Not Supported");
@@ -66,7 +66,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         mMagno=sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         if(mMagno!=null) {
-            sensorManager.registerListener(SensorActivity.this, mMagno, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(SensorActivity.this, mMagno, SensorManager.SENSOR_DELAY_UI);
             Log.d(TAG, "oncreate: Registered Magno Listener");
         }else {
             xMagnoValue.setText("Magno Not Supported");
@@ -75,15 +75,15 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         }
 
     }
-
+//https://stackoverflow.com/questions/49011924/round-double-to-1-decimal-place-kotlin-from-0-044999-to-0-1
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor sensor = sensorEvent.sensor;
         if(sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             Log.d(TAG, "onSensorChanged: X: " + sensorEvent.values[0] + "Y: " + sensorEvent.values[1] + "Z: " + sensorEvent.values[2]);
-            xValue.setText("xvalue =" + sensorEvent.values[0]);
-            yValue.setText("yvalue =" + sensorEvent.values[1]);
-            zValue.setText("zvalue =" + sensorEvent.values[2]);
+            xValue.setText("Axvalue =" + String.format("%.2f", sensorEvent.values[0]));
+            yValue.setText("Ayvalue =" + String.format("%.2f", sensorEvent.values[0]));
+            zValue.setText("Azvalue =" + String.format("%.2f", sensorEvent.values[0]));
 
 
            if(sensorEvent.values[0]>= 1 ){
@@ -100,14 +100,14 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
                zValue.setBackgroundColor(Color.RED);
            }
            else if(sensorEvent.values[2]< 5) {
-               zValue.setBackgroundColor(Color.BLUE);
+               zValue.setBackgroundColor(Color.CYAN);
            }
 
 
         }else if (sensor.getType()==Sensor.TYPE_GYROSCOPE){
-            xGyroValue.setText("xGvalue =" + sensorEvent.values[0]);
-            yGyroValue.setText("yGvalue =" + sensorEvent.values[1]);
-            zGyroValue.setText("zGvalue =" + sensorEvent.values[2]);
+            xGyroValue.setText("xGvalue =" + String.format("%.2f", sensorEvent.values[0]));
+            yGyroValue.setText("yGvalue =" + String.format("%.2f", sensorEvent.values[1]));
+            zGyroValue.setText("zGvalue =" + String.format("%.2f", sensorEvent.values[2]));
 
             if(sensorEvent.values[0]>= 1 ){
                 xGyroValue.setBackgroundColor(Color.RED);
@@ -123,13 +123,13 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
                 zGyroValue.setBackgroundColor(Color.RED);
             }
             else if(sensorEvent.values[2]< 5) {
-                zGyroValue.setBackgroundColor(Color.BLUE);
+                zGyroValue.setBackgroundColor(Color.CYAN);
             }
 
         }else if (sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD){
-            xMagnoValue.setText("xMvalue =" + sensorEvent.values[0]);
-            yMagnoValue.setText("yMvalue =" + sensorEvent.values[1]);
-            zMagnoValue.setText("zMvalue =" + sensorEvent.values[2]);
+            xMagnoValue.setText("xMvalue =" + String.format("%.2f", sensorEvent.values[0]));
+            yMagnoValue.setText("yMvalue =" + String.format("%.2f", sensorEvent.values[1]));
+            zMagnoValue.setText("zMvalue =" + String.format("%.2f", sensorEvent.values[2]));
 
 
             if(sensorEvent.values[0]>= 1 ){
@@ -146,7 +146,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
                 zMagnoValue.setBackgroundColor(Color.RED);
             }
             else if(sensorEvent.values[2]< 5) {
-                zMagnoValue.setBackgroundColor(Color.BLUE);
+                zMagnoValue.setBackgroundColor(Color.CYAN);
             }
         }
 
